@@ -25,7 +25,6 @@ void setup() {
   digitalWrite(SPEC_CLK, HIGH);
   digitalWrite(SPEC_GAIN, HIGH); //High Gain
 
-  // put your setup code here, to run once:
   Serial.begin(9600);
 }
 
@@ -33,7 +32,7 @@ void readSpectrometer()
 {
   int delay_time = 35;     // delay per half clock (in microseconds).  This ultimately conrols the integration time.
   int idx = 0;
-  int read_time = 35;      // Amount of time that the readAD7940() procedure takes (in microseconds)
+  int read_time = 35;      // Amount of time that the analogRead() procedure takes (in microseconds)
   int intTime = 100; 
   int accumulateMode = false;
   int i;
@@ -141,7 +140,7 @@ void readSpectrometer()
 
 void loop() 
 {
-
+  delay(10);
   readSpectrometer();
   for (int i = 0; i < SPEC_CHANNELS; i++) 
   {
