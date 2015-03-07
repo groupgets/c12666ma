@@ -1,36 +1,46 @@
-
+ 
 // This code is a modified from the original sketch from Peter Jansen
 // https://github.com/tricorderproject/arducordermini
 // This code removes the external ADC and uses the internal ADC instead. 
 // also this code just prints the output to csv output to the terminal. 
 
 #define SPEC_GAIN        A0
-#define SPEC_EOS         A1
-#define SPEC_ST          A2
-#define SPEC_CLK         A3
-#define SPEC_VIDEO       A4
+//#define SPEC_EOS         NA
+#define SPEC_ST          A1
+#define SPEC_CLK         A2
+#define SPEC_VIDEO       A3
+#define LASER_808        A4
+#define LASER_404        A5
 
 #define SPEC_CHANNELS    256
 uint16_t data[SPEC_CHANNELS];
 
 void setup() {
 
-  pinMode(SPEC_EOS, INPUT);
+  //pinMode(SPEC_EOS, INPUT);
   pinMode(SPEC_GAIN, OUTPUT);
   pinMode(SPEC_ST, OUTPUT);
   pinMode(SPEC_CLK, OUTPUT);
+
+  pinMode(LASER_808, OUTPUT);
+  pinMode(LASER_404, OUTPUT);
+  digitalWrite(LASER_808, LOW);
+  digitalWrite(LASER_404, LOW);
 
   digitalWrite(SPEC_GAIN, HIGH);
   digitalWrite(SPEC_ST, HIGH);
   digitalWrite(SPEC_CLK, HIGH);
   digitalWrite(SPEC_GAIN, HIGH); //High Gain
+  //digitalWrite(SPEC_GAIN, LOW); //LOW Gain
 
-  Serial.begin(9600);
+  //Serial.begin(9600);
+  Serial.begin(115200);
 }
 
 void readSpectrometer()
 {
-  int delay_time = 35;     // delay per half clock (in microseconds).  This ultimately conrols the integration time.
+  //int delay_time = 35;     // delay per half clock (in microseconds).  This ultimately conrols the integration time.
+  int delay_time = 1;     // delay per half clock (in microseconds).  This ultimately conrols the integration time.
   int idx = 0;
   int read_time = 35;      // Amount of time that the analogRead() procedure takes (in microseconds)
   int intTime = 100; 
@@ -141,13 +151,17 @@ void readSpectrometer()
 void loop() 
 {
   delay(10);
+  digitalWrite(LASER_404, HIGH);
   readSpectrometer();
+  digitalWrite(LASER_404, LOW);
   for (int i = 0; i < SPEC_CHANNELS; i++) 
   {
     Serial.print(data[i]);
     Serial.print(',');
   }
   Serial.print("\n");
+  
+
   
   delay(1);
 }

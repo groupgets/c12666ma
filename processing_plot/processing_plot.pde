@@ -3,26 +3,61 @@ import processing.serial.*;
 Serial myPort; 
 String val;    
 int[] data; 
+double[] summed;
+int draw_sum=1;
 
- void plotdata()
+double find_max(double[] input)
+{
+  double max = 0;
+  for (int i = 0; i < input.length; i++) 
   {
-
-    background(0); 
-    stroke(255); 
-    for(int i=0; i<data.length-1; i++)
+    if (input[i] > max)
     {
-      line(i, 0, i,512-data[i]);
+      max = input[i];
     }
   }
+  return max;
+}
+
+void plotdata()
+{
+
+  double summed_max = (find_max(summed))/512;
+
+  background(0); 
+
+  if (draw_sum !=0)
+  {
+    for (int i=0; i<summed.length-1; i++)
+    {
+      line(i, 0, i, 512-(int)(summed[i]/summed_max));
+    }
+  } else
+  {
+
+    for (int i=0; i<data.length-1; i++)
+    {
+      line(i, 0, i, 512-data[i]);
+    }
+  }
+  stroke(255);
+}
 
 
 void setup() 
 {
   println(Serial.list());
   String portName = Serial.list()[2]; //change # to match your port
-  myPort = new Serial(this, portName, 9600);
-  
-  size(255,512);
+  myPort = new Serial(this, portName, 115200);
+
+  summed = new double[255];
+
+  for (int i = 0; i < 255; i++) 
+  {
+    summed[i] = 0;
+  }
+
+  size(255, 512);
 }
 
 void draw()
@@ -36,12 +71,41 @@ void draw()
 
       for (int i = 0; i < data.length; i++) 
       {
-        print(data[i]);
-        print(' ');
+        if (i<summed.length)
+        {
+          summed[i] +=  data[i];
+        }
+        //print(data[i]);
+        // print(' ');
       }
-      println( ' ');
+      //  println( ' ');
       plotdata();
     }
+  }
+}
+
+void keyPressed() {
+
+  if (key == 'c' ) 
+  {
+    for (int i = 0; i < summed.length; i++) 
+    {
+      summed[i] = 0;
+    }
+  } 
+  else if (key == 't' ) 
+  {
+    if(draw_sum==1)
+    {
+      draw_sum = 0;
+    }
+    else
+    {
+      draw_sum = 1;
+    }
+  } 
+  else 
+  {
   }
 }
 
