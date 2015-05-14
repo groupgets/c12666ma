@@ -4,7 +4,7 @@ Serial myPort;
 String val;    
 int[] data; 
 double[] summed;
-int draw_sum=1;
+int draw_sum=0;
 
 double find_max(double[] input)
 {
@@ -14,7 +14,7 @@ double find_max(double[] input)
     if (input[i] > max)
     {
       max = input[i];
-    }
+    }            
   }
   return max;
 }

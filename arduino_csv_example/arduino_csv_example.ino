@@ -9,7 +9,7 @@
 #define SPEC_ST          A1
 #define SPEC_CLK         A2
 #define SPEC_VIDEO       A3
-#define LASER_808        A4
+#define WHITE_LED        A4
 #define LASER_404        A5
 
 #define SPEC_CHANNELS    256
@@ -22,10 +22,14 @@ void setup() {
   pinMode(SPEC_ST, OUTPUT);
   pinMode(SPEC_CLK, OUTPUT);
 
-  pinMode(LASER_808, OUTPUT);
+  pinMode(WHITE_LED, OUTPUT);
   pinMode(LASER_404, OUTPUT);
-  digitalWrite(LASER_808, LOW);
+  digitalWrite(WHITE_LED, LOW);
   digitalWrite(LASER_404, LOW);
+  
+  
+  //digitalWrite(WHITE_LED, HIGH);
+  //digitalWrite(LASER_404, HIGH);
 
   digitalWrite(SPEC_GAIN, HIGH);
   digitalWrite(SPEC_ST, HIGH);
@@ -148,20 +152,31 @@ void readSpectrometer()
   }
 }
 
-void loop() 
+void print_data()
 {
-  delay(10);
-  digitalWrite(LASER_404, HIGH);
-  readSpectrometer();
-  digitalWrite(LASER_404, LOW);
   for (int i = 0; i < SPEC_CHANNELS; i++) 
   {
     Serial.print(data[i]);
     Serial.print(',');
   }
   Serial.print("\n");
-  
+}
 
+void loop() 
+{
+//  digitalWrite(LASER_404, HIGH);
+//  readSpectrometer();
+//  digitalWrite(LASER_404, LOW);
+//  print_data();
+//  delay(10);
   
-  delay(1);
+//  digitalWrite(WHITE_LED, HIGH);
+//  readSpectrometer();
+//  digitalWrite(WHITE_LED, LOW);
+//  print_data();
+//  delay(10);
+  
+  readSpectrometer();
+  print_data();
+  delay(10);   
 }
