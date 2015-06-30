@@ -47,7 +47,7 @@ void plotdata()
 void setup() 
 {
   println(Serial.list());
-  String portName = Serial.list()[2]; //change # to match your port
+  String portName = Serial.list()[0]; //This is the index into the serial list, if you only have one serial device the index is 0
   myPort = new Serial(this, portName, 115200);
 
   summed = new double[255];
