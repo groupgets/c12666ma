@@ -34,8 +34,8 @@ void setup() {
   digitalWrite(SPEC_GAIN, HIGH);
   digitalWrite(SPEC_ST, HIGH);
   digitalWrite(SPEC_CLK, HIGH);
-  digitalWrite(SPEC_GAIN, HIGH); //High Gain
-  //digitalWrite(SPEC_GAIN, LOW); //LOW Gain
+  digitalWrite(SPEC_GAIN, HIGH); //LOW Gain
+  //digitalWrite(SPEC_GAIN, LOW); //High Gain
 
   //Serial.begin(9600);
   Serial.begin(115200);
@@ -46,7 +46,7 @@ void readSpectrometer()
   //int delay_time = 35;     // delay per half clock (in microseconds).  This ultimately conrols the integration time.
   int delay_time = 1;     // delay per half clock (in microseconds).  This ultimately conrols the integration time.
   int idx = 0;
-  int read_time = 35;      // Amount of time that the analogRead() procedure takes (in microseconds)
+  int read_time = 35;      // Amount of time that the analogRead() procedure takes (in microseconds) (different micros will have different times) 
   int intTime = 100; 
   int accumulateMode = false;
   int i;
@@ -73,7 +73,7 @@ void readSpectrometer()
 
   // Step 3: Integration time -- sample for a period of time determined by the intTime parameter
   int blockTime = delay_time * 8;
-  int numIntegrationBlocks = (intTime * 1000) / blockTime;
+  long int numIntegrationBlocks = ((long)intTime * (long)1000) / (long)blockTime;
   for (int i = 0; i < numIntegrationBlocks; i++) {
     // Four clocks per pixel
     // First block of 2 clocks -- measurement
