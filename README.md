@@ -21,3 +21,5 @@ put the spectrometer into the breakout board.
 alight the breakout board so the 5V and 3.3V and GND pins line up. EOS will be unconnected in the center. 
 Download the code onto the arduino. 
 you will have to modify the processing script to open the correct serial port. 
+
+Please if there are any improvements of fixes please submit a push request and it should be accepted. Thanks! 
