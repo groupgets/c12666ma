@@ -22,22 +22,6 @@ void setup(){
   digitalWrite(SPEC_CLK, HIGH); // Set SPEC_CLK High
   digitalWrite(SPEC_ST, LOW); // Set SPEC_ST Low
 
-  for(int i = 0; i < 3; i++){
-
-      //Flash Laser
-      digitalWrite(LASER_404, HIGH);
-      delay(1000);    
-      digitalWrite(LASER_404, LOW);
-      delay(1000);
-
-      //Flash White LED
-      digitalWrite(WHITE_LED, HIGH);
-      delay(1000);
-      digitalWrite(WHITE_LED, LOW);
-      delay(1000);
-    
-  }
-
   Serial.begin(115200); // Baud Rate set to 115200
   
 }
