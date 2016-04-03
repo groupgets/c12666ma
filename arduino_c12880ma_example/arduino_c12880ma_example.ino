@@ -66,7 +66,7 @@ void readSpectrometer(){
       
   }
 
-  //One more clock pulse before the second read
+  //One more clock pulse before the actual read
   digitalWrite(SPEC_CLK, HIGH);
   delayMicroseconds(delayTime);
   digitalWrite(SPEC_CLK, LOW);
@@ -103,7 +103,7 @@ void readSpectrometer(){
 }
 
 /*
- * The Function Below prints out data to the terminal or 
+ * The function below prints out data to the terminal or 
  * processing plot
  */
 void printData(){
