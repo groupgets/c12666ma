@@ -72,7 +72,7 @@ void readSpectrometer(){
   digitalWrite(SPEC_CLK, LOW);
   delayMicroseconds(delayTime);
 
-  //Second read from SPEC_VIDEO
+  //Read from SPEC_VIDEO
   for(int i = 0; i < SPEC_CHANNELS; i++){
 
       data[i] = analogRead(SPEC_VIDEO);
